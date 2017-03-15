@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/default_background_black"
+    android:layout_height="match_parent">
+
+
+    <!--&lt;!&ndash;其中的轨迹的的界面的布局&ndash;&gt;-->
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/route_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--当前轨迹的名称-->
+        <TextView
+            android:id="@+id/currnet_route_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="第三号轨迹"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            />
+
+        <!-- 绘制轨迹的区域 和 以及 轨迹的数字的提醒的数字信息-->
+
+
+
+        <LinearLayout
+            android:id="@+id/ll_controll_bottom"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:padding="1dp"
+            android:layout_alignParentStart="true">
+
+            <!--变小-->
+            <TextView
+                android:id="@+id/txt_become_smaller"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:text="@string/please_become_smaller"
+                />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                />
+            <!--变大的-->
+            <TextView
+                android:id="@+id/txt_become_bigger"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:text="@string/please_become_bigger"
+
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_above="@id/ll_controll_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark"
+            />
+
+        <!-- 下面的 扩大和缩小的 按钮的控制 操作  -->
+
+        <!-- 填充运动轨迹的view 和 当前的运动的参数的信息 -->
+        <LinearLayout
+            android:layout_below="@id/currnet_route_name"
+            android:layout_above="@id/ll_controll_bottom"
+            android:layout_width="match_parent"
+            android:layout_margin="1dp"
+            android:weightSum="3"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@color/colorPrimaryDark"
+                />
+
+            <!-- 当前 GPX 的相关的信息 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="@string/current_altitude"
+                    />
+                <!--当前的海拔的数字-->
+                <TextView
+                    android:id="@+id/num_current_altitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="1649km"
+                    />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cumulative_climb"
+                    android:textAlignment="center"
+                    />
+
+                <!--累计爬升-->
+                <TextView
+                    android:id="@+id/num_cumulative_climb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="267km"
+                    />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+    <!--toast 提醒界面-->
+
+    <RelativeLayout
+        android:id="@+id/rl_toast_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--最上面的描述内容-->
+        <TextView
+            android:id="@+id/markd_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:textAlignment="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:lineSpacingExtra="5dp"
+            style="@style/base_white_font"
+            android:layout_above="@+id/line_center"
+            android:layout_centerHorizontal="true" />
+
+        <LinearLayout
+            android:id="@+id/ll_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true">
+
+            <!--取消按钮-->
+            <TextView
+                android:id="@+id/txt_cencel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/decision_no"
+                style="@style/base_white_font"
+
+                />
+
+            <!--android:background="@mipmap/alter_dialog_button3"-->
+
+            <View
+                android:id="@+id/middle_separtor_line"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                style="@style/base_white_line"
+                />
+
+            <!--确定按钮-->
+            <TextView
+                android:id="@+id/txt_confirm"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                style="@style/base_white_font"
+                android:text="@string/decision_yes"
+                />
+            <!--android:background="@mipmap/alter_dialog_button1"-->
+
+            <!-- 唯一一个 确定的的按钮  -->
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/remind_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                style="@style/base_white_font"
+                android:text="@string/confirm"
+                />
+
+        </LinearLayout>
+        <!--底部的 base_title_bar -->
+
+        <View
+            android:id="@+id/line_center"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            style="@style/base_white_line"
+            android:layout_marginBottom="1dp"
+            android:layout_above="@id/ll_bottom"
+            />
+
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+
+
+

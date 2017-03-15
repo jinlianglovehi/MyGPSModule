@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">MyGPSModule</string>
+
+
+    <!--运动设置界面中的中文字符-->
+    <string name="sport_setting_gpx_route_selected">轨迹已选定</string>
+ 
+    <string name="sport_setting_gpx_route_selectd_remind">户外运动功能均会使用此轨迹进行导航，如无需导航请选择"关闭"，以关闭轨迹导航</string>
+
+    <string name="confirm">确定</string>
+
+    <string name="decision_yes">是</string>
+    <string name="decision_no">否</string>
+    
+    <!--使用轨迹的界面中的文案提示-->
+    
+    <string name="use_sport_route_remind">本次运动是否使用 %1$s 轨迹进行导航？</string>
+
+    <!--请从轨迹开始的位置进行运动-->
+    <string name="please_start_sport_from_route_start">为保证轨迹导航的准确度，请在轨迹起点的真实地理位置开启运动</string>
+
+
+    <!--轨迹界面-->
+    
+    <string name="please_become_bigger">放大</string>
+
+    <string name="please_become_smaller">缩小</string>
+
+
+    <!--当前海拔-->
+    <string name="current_altitude">当前海拔</string>
+    
+    
+    <string name="cumulative_climb">累计爬升</string>
+
+    <!--偏移提醒-->
+
+    <string name="sport_route_out_of">已偏离轨迹</string>
+    <string name="sport_back_to_route">已回归到轨迹</string>
+    
+
+
+</resources>
