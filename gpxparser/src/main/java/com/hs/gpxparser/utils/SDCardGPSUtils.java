@@ -140,7 +140,7 @@ public class SDCardGPSUtils {
             gpxAppRoute  = new GPXAppRoute();
 
             try {
-                GPX gpx =  gpxParser.parseSimpleGPX(new FileInputStream(currentFile));
+                GPX gpx =  gpxParser.parseSimpleGPX(new FileInputStream(filePath+currentFile));
                 gpxAppRoute.setRouteName(gpx.getMetadata().getName());// 设置轨迹的名称
                 // 设置传输完毕后生成的轨迹缩图的filePath
                 gpxAppRoute.setRouteImgPath(getGPXRouteImagePath(currentFile.getName()));

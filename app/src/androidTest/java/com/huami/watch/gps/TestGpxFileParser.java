@@ -41,7 +41,7 @@ public class TestGpxFileParser  {
      *  后去轨迹的点坐标
      */
 
-//    @Test
+    @Test
     public  void testParSer(){
 
         LogUtils.print(TAG, "testParSer");
@@ -63,11 +63,12 @@ public class TestGpxFileParser  {
 
                    List<Waypoint> wayPonits =  track.getTrackSegments().get(0).getWaypoints();
 
-                    for (Waypoint wayPoint : wayPonits
-                         ) {
-                        LogUtils.print(TAG, "testWayPoint:"+ wayPoint.toString());
-
-                    }
+                    LogUtils.print(TAG, "testParSer WayPointSize:"+ wayPonits.size());
+//                    for (Waypoint wayPoint : wayPonits
+//                         ) {
+//                        LogUtils.print(TAG, "testWayPoint:"+ wayPoint.toString());
+//
+//                    }
 
                 }
 
@@ -93,7 +94,7 @@ public class TestGpxFileParser  {
     public static final float KM_TO_MI = 0.621371192237f;
 
 
-    @Test
+//    @Test
     public  void testMIsToKm(){
         String result = "10公里" ;
 

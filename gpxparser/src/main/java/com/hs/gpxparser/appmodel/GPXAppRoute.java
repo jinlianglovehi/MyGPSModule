@@ -48,4 +48,14 @@ public class GPXAppRoute implements Serializable {
     public void setRouteLength(float routeLength) {
         this.routeLength = routeLength;
     }
+
+
+    @Override
+    public String toString() {
+        return "GPXAppRoute{" +
+                "routeImgPath='" + routeImgPath + '\'' +
+                ", routeName='" + routeName + '\'' +
+                ", routeLength=" + routeLength +
+                '}';
+    }
 }

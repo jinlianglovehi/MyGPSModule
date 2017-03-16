@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.hs.gpxparser.GPXParser;
+import com.hs.gpxparser.appmodel.GPXAppRoute;
 import com.hs.gpxparser.modal.GPX;
 import com.hs.gpxparser.modal.Track;
 import com.hs.gpxparser.modal.Waypoint;
@@ -16,6 +17,7 @@ import com.huami.watch.gps.view.DrawingWithoutBezier;
 import com.huami.watch.gps.view.TrailRouteView;
 
 import java.io.File;
+import java.sql.Time;
 import java.util.Iterator;
 import java.util.List;
 
@@ -82,6 +84,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
+     * 测试获取 轨迹 from sdcard 中
+     */
+    private void testGetRouteFromSDCard(){
+        
+        List<GPXAppRoute> gpxRoutes =  SDCardGPSUtils.getGPXAppRouteFromSDCard();
+        for (GPXAppRoute route: gpxRoutes ) {
+
+            LogUtils.print(TAG, "testGetRouteFromSDCard:"+ route.toString());
+        }
+
+    }
+
+
+
+    /**
      * 测试 获取文件的地址
      */
     private void getFileGPSData(Context mContext) {
@@ -92,10 +109,16 @@ public class MainActivity extends AppCompatActivity {
         LogUtils.print(TAG, "getFileGPSData fileSize:" + files.length);
         for (File file : files) {
             LogUtils.print(TAG, "getFileGPSData fileName:" + file.getName());
-            GPX gpx = SDCardGPSUtils.getWayPointsFromFileName(file.getName());
-
-             printTrackPoint(gpx,file.getName());
+         
         }
+
+//        开始解析
+        LogUtils.print(TAG, "getFileGPSData start Parser  :" + System.currentTimeMillis() );
+        GPX gpx = SDCardGPSUtils.getWayPointsFromFileName(files[0].getName());
+
+        // 结束解析
+        LogUtils.print(TAG, "getFileGPSData end Parser :"+System.currentTimeMillis() );
+        printTrackPoint(gpx,files[0].getName());
 
 
     }
