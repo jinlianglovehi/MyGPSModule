@@ -52,7 +52,7 @@ public class SDCardGPSUtils {
      * 根据gpx 轨迹绘制生成一张图片
      * @return
      */
-    public File[] getGPSSDCardFiles(){
+    public static  File[] getGPSSDCardFiles(){
 
         if(isSdCardExist()){
             File currentPath = new File(filePath);
@@ -125,7 +125,7 @@ public class SDCardGPSUtils {
      * 获取的时候当前sdcard 上的全部的gpx file 的信息
      * @return
      */
-    public List<GPXAppRoute> getGPXAppRouteFromSDCard(){
+    public static List<GPXAppRoute> getGPXAppRouteFromSDCard(){
 
         File[] files = getGPSSDCardFiles();
 
@@ -160,11 +160,30 @@ public class SDCardGPSUtils {
     }
 
     /**
+     *  根据文件 获取 GPX 点的数据
+     */
+    public static GPX getWayPointsFromFileName(String fileName){
+
+        GPXParser gpxParser =new GPXParser();
+
+        GPX gpx = null ;
+        try {
+            gpx =  gpxParser.parseGPX(new FileInputStream(filePath +fileName));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return gpx;
+    }
+
+
+
+    /**
      * 通过文件的名称 获取 gpx route轨迹的图片的sdcard filepath
      * @param fileName ;以gpx 文件的名称作为唯一的标记点
      * @return
      */
-    public String getGPXRouteImagePath(String fileName){
+    public static String getGPXRouteImagePath(String fileName){
         StringBuilder sb = new StringBuilder();
         sb.append(ROUTE_IMG_PATH);
         sb.append(fileName);

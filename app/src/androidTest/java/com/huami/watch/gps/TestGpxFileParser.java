@@ -8,6 +8,7 @@ import com.hs.gpxparser.GPXParser;
 import com.hs.gpxparser.modal.GPX;
 import com.hs.gpxparser.modal.Track;
 import com.hs.gpxparser.modal.Waypoint;
+import com.hs.gpxparser.utils.LogUtils;
 
 import org.junit.Before;
 import org.junit.Test;
