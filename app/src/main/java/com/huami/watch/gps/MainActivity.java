@@ -1,8 +1,11 @@
 package com.huami.watch.gps;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.hs.gpxparser.GPXParser;
 import com.hs.gpxparser.appmodel.GPXAppRoute;
@@ -14,6 +17,7 @@ import com.hs.gpxparser.utils.SDCardGPSUtils;
 import com.huami.watch.gps.utils.IResultCallBack;
 import com.huami.watch.gps.utils.RxUtils;
 import com.huami.watch.gps.view.DrawingWithoutBezier;
+import com.huami.watch.gps.view.TrailDrawer;
 import com.huami.watch.gps.view.TrailRouteView;
 
 import java.io.File;
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TrailRouteView trainRouteView;
 
+    private ImageView guiji;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,38 +48,40 @@ public class MainActivity extends AppCompatActivity {
 //        trainRouteView = new TrailRouteView(this);
 //        setContentView(trainRouteView);
 
+        guiji = (ImageView) findViewById(R.id.guiji);
+
+
         initData();
     }
 
     private void initData() {
 
-        RxUtils.operate(new Observable.OnSubscribe<Boolean>() {
+        RxUtils.operate(new Observable.OnSubscribe<List<Waypoint>>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
+            public void call(Subscriber<? super List<Waypoint>> subscriber) {
 
 //                initAddData();
                 LogUtils.print(TAG, "call");
-                getFileGPSData(MainActivity.this);
-                subscriber.onNext(true);
+//                List<Waypoint> listData = getFileGPSData(MainActivity.this);
+                initAddData() ;
+                subscriber.onNext(listData);
                 subscriber.onCompleted();
 
 
             }
-        }, new IResultCallBack<Boolean>() {
+        }, new IResultCallBack<List<Waypoint>>() {
             @Override
-            public void onSuccess(Boolean aBoolean) {
-                LogUtils.print(TAG, "onSuccess :"+ aBoolean);
-//                if (aBoolean == true) {
-//
-//                    drawingWithoutBezier.setWayPointData(listData);
-//
-//                }
+            public void onSuccess(List<Waypoint> waypoints) {
+
+                LogUtils.print(TAG, "onSuccess draw line ");
+                drawGuiJi(waypoints);
+
+
 
             }
 
             @Override
-            public void onFail(Boolean aBoolean, String msg) {
-                LogUtils.print(TAG, "onFail aBoolean:"+ aBoolean + "，msg:"+ msg);
+            public void onFail(List<Waypoint> waypoints, String msg) {
 
             }
         });
@@ -101,55 +108,74 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 测试 获取文件的地址
      */
-    private void getFileGPSData(Context mContext) {
+//    private List<Waypoint> getFileGPSData(Context mContext) {
+//
+//        LogUtils.print(TAG, "getFileGPSData");
+////        File[] files = SDCardGPSUtils.getGPSSDCardFiles();
+//
+////        LogUtils.print(TAG, "getFileGPSData fileSize:" + files.length);
+////        for (File file : files) {
+////            LogUtils.print(TAG, "getFileGPSData fileName:" + file.getName());
+////
+////        }
+////
+//////        开始解析
+////        LogUtils.print(TAG, "getFileGPSData start Parser  :" + System.currentTimeMillis() );
+////        GPX gpx = SDCardGPSUtils.getWayPointsFromFileName(files[0].getName());
+//
+//        // 结束解析
+//
+//        GPX gpx  =gpxParser.parseGPX(MainActivity.this.getAssets().open("TNF100_Beijing_100km.gpx"));
+//
+//        LogUtils.print(TAG, "getFileGPSData end Parser :"+System.currentTimeMillis() );
+//        List<Waypoint> listData = printTrackPoint(gpx,files[0].getName());
+//
+//        return listData ;
+//
+//    }
 
-        LogUtils.print(TAG, "getFileGPSData");
-        File[] files = SDCardGPSUtils.getGPSSDCardFiles();
 
-        LogUtils.print(TAG, "getFileGPSData fileSize:" + files.length);
-        for (File file : files) {
-            LogUtils.print(TAG, "getFileGPSData fileName:" + file.getName());
-         
-        }
-
-//        开始解析
-        LogUtils.print(TAG, "getFileGPSData start Parser  :" + System.currentTimeMillis() );
-        GPX gpx = SDCardGPSUtils.getWayPointsFromFileName(files[0].getName());
-
-        // 结束解析
-        LogUtils.print(TAG, "getFileGPSData end Parser :"+System.currentTimeMillis() );
-        printTrackPoint(gpx,files[0].getName());
-
-
-    }
-
-
-    private void printTrackPoint(GPX gpx,String fileName) {
+    private List<Waypoint> printTrackPoint(GPX gpx,String fileName) {
 
 
         LogUtils.print(TAG, "printTrackPoint");
         LogUtils.print(TAG, "printTrackPoint trackSize:"+ gpx.getTracks());
         Iterator<Track> trackIterator = gpx.getTracks().iterator();
 
+        List<Waypoint> listData = null ;
         while (trackIterator.hasNext())
 
         {
             Track track = trackIterator.next();
 
-            List<Waypoint> wayPonits = track.getTrackSegments().get(0).getWaypoints();
-
-            for (Waypoint wayPoint : wayPonits
-                    ) {
-                LogUtils.print(TAG, fileName +  "   testWayPoint:" + wayPoint.toString());
-
-            }
+             listData = track.getTrackSegments().get(0).getWaypoints();
 
         }
+
+        return listData ;
+
+
     }
 
 
 
 
+
+    private TrailDrawer mTrailDrawer ;
+
+    private void drawGuiJi(List<Waypoint> listData){
+        mTrailDrawer = new TrailDrawer(MainActivity.this, 200, 200, true);
+        mTrailDrawer.startDraw();
+        mTrailDrawer.setStart(R.drawable.sport_start_route);
+        mTrailDrawer.setEnd(R.drawable.sport_history_end_route);
+//        mTrailAnimView.setStart(R.drawable.sport_start_route);
+//        mTrailAnimView.setEnd(R.drawable.sport_history_end_route);
+        mTrailDrawer.addLocationDatasToBitmap(listData);
+        final Bitmap bitmap = mTrailDrawer.newTrailBitmap();
+        guiji.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+
+        SDCardGPSUtils.saveBitmapToSDCard(bitmap,"TNF100_Beijing_100km");
+    }
 
 
     private void initAddData(){

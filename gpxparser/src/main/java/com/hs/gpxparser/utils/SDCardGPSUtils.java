@@ -10,6 +10,7 @@ import com.hs.gpxparser.appmodel.GPXAppRoute;
 import com.hs.gpxparser.modal.GPX;
 import com.hs.gpxparser.modal.Waypoint;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -92,7 +93,6 @@ public class SDCardGPSUtils {
         canvas.restore();
 
         // TODO: 17/3/13 绘制轨迹地图 start
-
 
 
 
@@ -189,6 +189,28 @@ public class SDCardGPSUtils {
         sb.append(fileName);
         sb.append(IMG_FILE_FORMAT);
         return sb.toString();
+    }
+
+
+    /**
+     * 保存bitmap 文件成为一个图片地址
+     * @return
+     */
+    public static void saveBitmapToSDCard(Bitmap bitmap,String fileName){
+
+        File file=new File(getGPXRouteImagePath(fileName));//将要保存图片的路径
+
+        try {
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            bos.flush();
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

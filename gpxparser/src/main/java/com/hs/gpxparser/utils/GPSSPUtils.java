@@ -1,4 +1,4 @@
-package com.huami.watch.gps.utils;
+package com.hs.gpxparser.utils;
 
 /**
  * Created by jinliang on 17/3/15.
